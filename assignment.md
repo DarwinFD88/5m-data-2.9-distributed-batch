@@ -21,7 +21,11 @@ def add_sqrt_column(df, col):
 Answer:
 
 ```python
+from pyspark.sql.functions import sqrt
 
+def add_sqrt_column(df, col):
+    new_df = df.withColumn('new_col', sqrt('col'))
+    return new_df
 ```
 
 ### Question 2
@@ -35,7 +39,13 @@ json_file = "path/to/data.json"
 Answer:
 
 ```python
+from pyspark.sql import SparkSession
 
+spark = SparkSession.builder.getOrCreate()
+
+json_df = spark.read.json(json_file)
+
+json_df.show()
 ```
 
 ### Question 3
@@ -52,7 +62,9 @@ filtered_df = df.filter(...)
 Answer:
 
 ```python
+from pyspark.sql.functions import col
 
+filtered_df = df.filter((col("column1") > 10) & (col("column2").contains("foo")))
 ```
 
 ## Submission
